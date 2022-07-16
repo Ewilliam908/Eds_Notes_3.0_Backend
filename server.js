@@ -28,5 +28,5 @@ app.use('/stages', stagesController)
 
 // LISTEN
 app.listen(process.env.PORT, () => {
-    console.log(`🎸 Rockin' on port: ${process.env.PORT}`)
+    console.log(`Getting life together on port: ${process.env.PORT}`)
 })

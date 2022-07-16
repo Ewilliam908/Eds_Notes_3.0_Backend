@@ -23,14 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    Description: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
+   
     
   }, {
     sequelize,

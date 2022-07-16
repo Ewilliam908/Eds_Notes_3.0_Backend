@@ -1,34 +1,34 @@
 // DEPENDENCIES
 const tasks = require('express').Router()
 const db = require('../models')
-const { Band, MeetGreet, SetTime, Event } = db 
+const { Description } = db 
 const { Op } = require('sequelize')
 
-// FIND ALL Users
-users.get('/', async (req, res) => {
+// FIND ALL TASKS
+tasks.get('/', async (req, res) => {
     try {
-        const foundUsers = await users.findAll({
-            order: [ [ 'available_start_time', 'ASC' ] ],
+        const foundTasks = await tasks.findAll({
+            order: [ [ 'description' ] ],
             where: {
                 name: { [Op.like]: `%${req.query.name ? req.query.name : ''}%` }
             }
         })
-        res.status(200).json(foundBands)
+        res.status(200).json(foundTasks)
     } catch (error) {
         res.status(500).json(error)
     }
 })
 
-// FIND A USER
-users.get('/:name', async (req, res) => {
+// FIND A TASK
+tasks.get('/:description', async (req, res) => {
     try {
-        const foundUsers = await users.findOne({
+        const foundTasks = await tasks.findOne({
             where: { name: req.params.name },
             include: [
                 { 
-                    model: users,
+                    model: tasks,
                     as: "name", 
-                    attributes: { exclude: ["users_id", "users_id"] },
+                    attributes: { exclude: ["tasks_id", "tasks_id"] },
                     include: { 
                         model: Users, 
                         as: "email", 
@@ -57,45 +57,45 @@ users.get('/:name', async (req, res) => {
     }
 })
 
-// CREATE A USER
-users.post('/', async (req, res) => {
+// CREATE A TASK
+tasks.post('/', async (req, res) => {
     try {
-        const newUsers = await users.create(req.body)
+        const newTasks = await tasks.create(req.body)
         res.status(200).json({
-            message: 'Successfully created a new user',
-            data: newUsers
+            message: 'Successfully added new task',
+            data: newTasks
         })
     } catch(err) {
         res.status(500).json(err)
     }
 })
 
-// UPDATE A USER
-users.put('/:id', async (req, res) => {
+// UPDATE A TASK
+tasks.put('/:id', async (req, res) => {
     try {
-        const updatedUsers = await users.update(req.body, {
+        const updatedTasks = await tasks.update(req.body, {
             where: {
-                users_id: req.params.id
+                tasks_id: req.params.id
             }
         })
         res.status(200).json({
-            message: `Successfully updated ${updatedUsers} users(s)`
+            message: `Successfully updated ${updatedUsers} tasks(s)`
         })
     } catch(err) {
         res.status(500).json(err)
     }
 })
 
-// DELETE A BAND
-users.delete('/:id', async (req, res) => {
+// DELETE A TASK
+tasks.delete('/:id', async (req, res) => {
     try {
-        const deletedUsers = await users.destroy({
+        const deletedTasks = await tasks.destroy({
             where: {
                 users_id: req.params.id
             }
         })
         res.status(200).json({
-            message: `Successfully deleted ${deletedUsers} users(s)`
+            message: `Successfully deleted ${deletedUsers} a tasks(s)`
         })
     } catch(err) {
         res.status(500).json(err)
@@ -103,4 +103,4 @@ users.delete('/:id', async (req, res) => {
 })
 
 // EXPORT
-module.exports = users
+module.exports = tasks

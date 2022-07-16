@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const { Sequelize } = require('sequelize')
-const users = require('./controllers/users_controller')
+const Users = require('./controllers/users_controller')
 
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
@@ -23,8 +23,7 @@ app.use('/users', usersController)
 const tasksController = require('./controllers/tasks_controller')
 app.use('/tasks', tasksController)
 
-const stagesController = require('./controllers/stages_controller')
-app.use('/stages', stagesController)
+
 
 // LISTEN
 app.listen(process.env.PORT, () => {

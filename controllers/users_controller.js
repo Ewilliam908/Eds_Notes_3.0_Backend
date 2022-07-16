@@ -4,10 +4,10 @@ const db = require('../models')
 const { Band, MeetGreet, SetTime, Event } = db 
 const { Op } = require('sequelize')
 
-// FIND ALL BANDS
+// FIND ALL Users
 users.get('/', async (req, res) => {
     try {
-        const foundBands = await Band.findAll({
+        const foundUsers = await users.findAll({
             order: [ [ 'available_start_time', 'ASC' ] ],
             where: {
                 name: { [Op.like]: `%${req.query.name ? req.query.name : ''}%` }
@@ -20,13 +20,13 @@ users.get('/', async (req, res) => {
 })
 
 // FIND A USER
-Users.get('/:name', async (req, res) => {
+users.get('/:name', async (req, res) => {
     try {
-        const foundUsers = await Users.findOne({
+        const foundUsers = await users.findOne({
             where: { name: req.params.name },
             include: [
                 { 
-                    model: Users,
+                    model: users,
                     as: "name", 
                     attributes: { exclude: ["users_id", "users_id"] },
                     include: { 
@@ -60,7 +60,7 @@ Users.get('/:name', async (req, res) => {
 // CREATE A USER
 users.post('/', async (req, res) => {
     try {
-        const newUsers = await Users.create(req.body)
+        const newUsers = await users.create(req.body)
         res.status(200).json({
             message: 'Successfully created a new user',
             data: newUsers
@@ -73,7 +73,7 @@ users.post('/', async (req, res) => {
 // UPDATE A USER
 users.put('/:id', async (req, res) => {
     try {
-        const updatedUsers = await Users.update(req.body, {
+        const updatedUsers = await users.update(req.body, {
             where: {
                 users_id: req.params.id
             }
@@ -89,7 +89,7 @@ users.put('/:id', async (req, res) => {
 // DELETE A BAND
 users.delete('/:id', async (req, res) => {
     try {
-        const deletedUsers = await Users.destroy({
+        const deletedUsers = await users.destroy({
             where: {
                 users_id: req.params.id
             }

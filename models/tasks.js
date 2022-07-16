@@ -17,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
   }
-  Tasks.init({
+  tasks.init({
     tasks_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    Description: {
+    description: {
         type: DataTypes.STRING,
         allowNull: false
     },
